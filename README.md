@@ -1,6 +1,7 @@
-# B.Tech Project Series
+# Project Series
 
-Welcome to the B.Tech Project Series! This repository contains a series of projects designed to enhance your skills in various programming languages and technologies. Each week focuses on a different topic, with scalable projects that build on what you've learned.
+Welcome to the Project Series! This repository contains a series of projects I've created to showcase my skills in various programming languages and technologies. Each week focuses on a different topic, with scalable projects that build on what you've learned.
+This is the theme of this project series.
 
 ## Table of Contents
 
@@ -72,8 +73,8 @@ Build an image classifier using a convolutional neural network and create a web 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/btech-project-series.git
-    cd btech-project-series
+    git clone https://github.com/Kyris11/project-series.git
+    cd project-series
     ```
 
 2. Navigate to the respective week's directory and start working on the projects.
@@ -83,6 +84,8 @@ Build an image classifier using a convolutional neural network and create a web 
 ## Contributing
 
 Feel free to fork this repository, make changes, and submit pull requests. Contributions are welcome!
+
+Hit the ⭐ button if you found this useful.
 
 ## License
 
