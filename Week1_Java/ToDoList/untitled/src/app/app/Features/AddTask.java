@@ -5,7 +5,8 @@ import app.Features.Task.QuickTask;
 import app.Features.Task.TaskManager;
 import app.Sorting.SortByDATE;
 import app.Task;
-import app.DATABASE.Database;
+import app.ToDoList;
+
 
 import java.util.Scanner;
 public class AddTask extends TaskManager {
@@ -13,7 +14,7 @@ public class AddTask extends TaskManager {
     public void showActionInfo() {
         System.out.println("");
         System.out.println("To add a new task, please follow the instructions(typo) below and press ENTER:");
-        System.out.println("Add Id, Description, Due_date('MM-dd'), Task_type and Sub_Task(optional).");
+        System.out.println("Add Id, Description, Due_date('dd-MM-yyyy'), Task_type(quick / extra) and Sub_Task(extra).");
         System.out.println("");
         System.out.println("Enter 0 to RETURN");
     }
@@ -24,6 +25,7 @@ public class AddTask extends TaskManager {
         while (true){
             System.out.println("");
             System.out.println("Enter Information:\n");
+            System.out.println("Add Id, Description, Due_date('dd-MM-yyyy'), Task_type(quick / extra) and Sub_Task(seperate by |).");
             Scanner in = new Scanner(System.in);
             String userInput = in.nextLine();
 
@@ -31,8 +33,8 @@ public class AddTask extends TaskManager {
                 String[] parts = userInput.split(",");
                 if (parts.length >= 4){
                     //adding CHECKS:
-                    if (SortByDATE.isValid("MM-dd", parts[2])){
-                        if (Database.tasks.get(parts[0] == null)){
+                    if (SortByDATE.isValid("dd-MM-yyyy", parts[2])){
+                        if (ToDoList.tasks.get(parts[0]) == null){
                             return userInput;
                         }else {
                             System.out.println("A task with this ID already exists, try again :( ");
@@ -56,19 +58,19 @@ public class AddTask extends TaskManager {
         String description = parts[1];
         String dueDate = parts[2];
         String taskType = parts[3];
-        String[] subTasks = parts.length > 4 ? parts[4].split("\n") : new String[0];
+        String[] subTasks = parts.length > 4 ? parts[4].split("|") : new String[0];
 
         Task task;
-        if (taskType.equalsIgnoreCase("quicktask")) {
-            task = new QuickTask(Integer.parseInt(id), description, SortByDATE.parseDate("MM-dd", dueDate));
-        } else if (taskType.equalsIgnoreCase("buildtask")) {
-            task = new BuildTask(Integer.parseInt(id), description,SortByDATE.parseDate("MM-dd", dueDate), taskType, subTasks);
+        if (taskType.equalsIgnoreCase("quick")) {
+            task = new QuickTask(Integer.parseInt(id), description, SortByDATE.parseDate("dd-MM-yyyy", dueDate));
+        } else if (taskType.equalsIgnoreCase("extra")) {
+            task = new BuildTask(Integer.parseInt(id), description,SortByDATE.parseDate("dd-MM-yyyy", dueDate), taskType, subTasks);
         } else {
             System.out.println("Invalid task type. Task not added.");
             return;
         }
 
-        Database.tasks.put(id, task);
+        ToDoList.tasks.put(id, task);
         System.out.println("Task successfully added!");
     }
 

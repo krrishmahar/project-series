@@ -13,6 +13,7 @@ public class QuickTask extends Task implements TaskInterface {
     private String description;
     private boolean status;
     private LocalDate dueDate;
+    private String taskType;
 
     //Initiating the first quick start
     public QuickTask(String description) {
@@ -60,7 +61,7 @@ public class QuickTask extends Task implements TaskInterface {
 
     @Override
     public String getTaskType() {
-        return "";
+        return taskType;
     }
 
     @Override
@@ -81,6 +82,8 @@ public class QuickTask extends Task implements TaskInterface {
 
 
     @Override
-    public void setTaskType(String taskType) {} //we are not going to take much details for a QuickTask
+    public void setTaskType(String taskType) {
+        this.taskType = "quick";
+    } //we are not going to take much details for a QuickTask
 
 }

@@ -79,7 +79,7 @@ public class BuildTask extends Task implements TaskInterface {
     }
     @Override
     public void setTaskType(String taskType) {
-        this.taskType = taskType;
+        this.taskType = "extra";
     }
     @Override
     public void setDueDate(LocalDate dueDate) {

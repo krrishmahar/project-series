@@ -2,6 +2,7 @@ package app.Sorting;
 
 import app.Features.Task.TaskManager;
 import app.Task;
+import app.ToDoList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,8 +30,8 @@ public class SortByDATE extends TaskManager {
 
     @Override
     public void execute(String command) {
-    List<Map.Entry<String, Task>> entries = new ArrayList<>();
-    Collections.sort(entries, new Comparator<Map.Entry<String, Task>>() {
+    List<Map.Entry<String, Task>> entries = new ArrayList<>(ToDoList.tasks.entrySet());
+    entries.sort(new Comparator<Map.Entry<String, Task>>() {
         @Override
         public int compare(Map.Entry<String, Task> task1, Map.Entry<String, Task> task2) {
             LocalDate dueDateFirstTask = task1.getValue().getDueDate();
@@ -38,6 +39,12 @@ public class SortByDATE extends TaskManager {
             return dueDateFirstTask.compareTo(dueDateSecondTask);
         }
     });
+
+    if (!entries.isEmpty()) {
+        System.out.println("Tasks successfully sorted");
+    }else {
+        System.out.println("Your list is empty, add tasks first then sort it (>_<)!! ");
+    }
 
     }
 
@@ -53,21 +60,34 @@ public class SortByDATE extends TaskManager {
             String result = localDate.format(formatter);
             return result.equals(value);
         } catch (DateTimeParseException e) {
-             e.printStackTrace(); // just for testing purpose, remove later
-             return false;
         }
+        return false;
     }
 
-    /*changes Date into String*/
+
     public static String convertDateToString(LocalDate date, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        String result;
+        String result = null;
         try {
             result = date.format(formatter);
-        } catch (DateTimeParseException | IllegalArgumentException e) {
-            return null;
+
+        } catch (DateTimeParseException e) {
+
         }
         return result;
     }
+
+
+    /*changes Date into String*/
+//    public static String convertDateToString(LocalDate date, String format) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+//        String result = null;
+//        try {
+//            result = date.format(formatter);
+//        } catch (DateTimeParseException e) {
+//
+//        }
+//        return result;
+//    }
 
 }
