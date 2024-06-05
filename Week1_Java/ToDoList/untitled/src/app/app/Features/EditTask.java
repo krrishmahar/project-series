@@ -18,7 +18,7 @@ public class EditTask extends TaskManager {
     public void showActionInfo() {
         System.out.println("");
         System.out.println("to update a task, follow the instructions and press ENTER: ");
-        System.out.println("ID, Description, Due_date('MM-dd'), Task_status, Task_type, Sub_task");
+        System.out.println("ID, Description, Due_date('MM-dd'), Task_type, Sub_task, set Status");
         System.out.println("ID here represent the ID of the task where an update will occur");
         System.out.println("<>ID cannot be changed</>");
         System.out.println("insert a (-) when an update is not needed to that specific parameter");
@@ -48,7 +48,7 @@ public class EditTask extends TaskManager {
 
             if (!userInput.equals(0)) {
                 String[] parts = userInput.split(",");
-                if (parts.length == 6) {
+                if (parts.length <= 6) {
                     boolean DateValidationRequired = true;
                     if (parts[2].equals("-")) {
                         DateValidationRequired = false;
@@ -56,7 +56,7 @@ public class EditTask extends TaskManager {
 
                     boolean isDateValid = true;
                     if (DateValidationRequired) {
-                        isDateValid = SortByDATE.isValid("MM-dd", parts[2]);
+                        isDateValid = SortByDATE.isValid("dd-MM-yyyy", parts[2]);
                     }
 
                     if (isDateValid) {
@@ -88,22 +88,25 @@ public class EditTask extends TaskManager {
         }
 
         if (!parts[2].equals("-")) {
-            ToDoList.tasks.get(parts[0]).setDueDate(SortByDATE.parseDate("MM-dd", parts[2]));
+            ToDoList.tasks.get(parts[0]).setDueDate(SortByDATE.parseDate("dd-MM-yyyy", parts[2]));
+            isTaskEdited = true;
+        }
+
+        if (!parts[3].equals("-")) {
+            ToDoList.tasks.get(parts[0]).setTaskType(parts[3]);
+            isTaskEdited = true;
+        }
+        if (!parts[4].equals("-")){
+            ToDoList.tasks.get(parts[0]).setSub_tasks(new String[]{parts[4]});
             isTaskEdited = true;
         }
 
         //More work required!!
-        if (!parts[3].equals("-")) {
-            ToDoList.tasks.get(parts[0]).setStatus(parts[3]);
-            isTaskEdited = true;
-        }
-        if (!parts[4].equals("-")) {
-            ToDoList.tasks.get(parts[0]).setTaskType(parts[4]);
-            isTaskEdited = true;
-        }
-        if (!parts[5].equals("-")){
-            ToDoList.tasks.get(parts[0]).setSubTasks(parts[5]);
-            isTaskEdited = true;
+        if (parts.length >=5) {
+            if (!parts[5].equals("-")) {
+                ToDoList.tasks.get(parts[0]).setStatus((parts[5].equalsIgnoreCase("complete")));
+                isTaskEdited = true;
+            }
         }
         if (isTaskEdited) {
             System.out.println("Tasks successfully updated!!");

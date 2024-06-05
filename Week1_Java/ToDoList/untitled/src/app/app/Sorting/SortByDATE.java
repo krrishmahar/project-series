@@ -65,14 +65,29 @@ public class SortByDATE extends TaskManager {
     }
 
 
+//    public static String convertDateToString(LocalDate date, String format) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+//        String result = null;
+//        try {
+//            result = date.format(formatter);
+//
+//        } catch (DateTimeParseException e) {
+//
+//        }
+//        return result;
+//    }
+
     public static String convertDateToString(LocalDate date, String format) {
+        if (date == null) {
+            return ""; // or any other default value or error handling mechanism you prefer
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         String result = null;
         try {
             result = date.format(formatter);
-
         } catch (DateTimeParseException e) {
-
+            // Handle parsing exception if needed
         }
         return result;
     }

@@ -1,10 +1,12 @@
 package app.Features.Task;
 
+import app.Sorting.SortByDATE;
 import app.Task;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class QuickTask extends Task implements TaskInterface {
 
@@ -16,18 +18,26 @@ public class QuickTask extends Task implements TaskInterface {
     private String taskType;
 
     //Initiating the first quick start
+//    public QuickTask(String description) {
+//        super();
+//        this.id = ++counter;
+//        this.description = description;
+//        this.status = false;
+//    }
+
+    //Initiating the first quick start
     public QuickTask(String description) {
-        super();
-        this.id = ++counter;
+        super(); // Call the Task constructor to initialize id and status
         this.description = description;
-        this.status = false;
+        this.taskType = "quick";
     }
 
-    public QuickTask(int id, String description, LocalDate dueDate) {
-        this.id = ++counter;
+    public QuickTask(int id, String description, LocalDate dueDate, String taskType) {
+        super(id,description,dueDate,taskType); // Call the Task constructor to initialize id and status
         this.description = description;
         this.dueDate = dueDate;
-        this.status = false;
+        this.taskType = "quick";
+        this.id = ++counter;
     }
 
     @Override
@@ -52,12 +62,13 @@ public class QuickTask extends Task implements TaskInterface {
 
     @Override
     public String toString() {
-        DateFormat df = new SimpleDateFormat("MM/dd");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
-        return id + ". " + description + (status ? " [complete]" : "" + "\t\t\t"+ df.format(dueDate));
+//        return id + ". " + description + (status ? " [complete]" : "" + "\t\t\t"+ df.format(dueDate));
+
+        return id +"," + description +","+ (status ? "completed" : "incomplete") + "," + SortByDATE.convertDateToString(dueDate,"dd-MM-yyyy");
+
     }
-
-
 
     @Override
     public String getTaskType() {
@@ -84,6 +95,6 @@ public class QuickTask extends Task implements TaskInterface {
     @Override
     public void setTaskType(String taskType) {
         this.taskType = "quick";
-    } //we are not going to take much details for a QuickTask
+    } //Ensuring the task type is always "quick"
 
 }

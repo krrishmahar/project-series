@@ -1,6 +1,7 @@
 package app.DATABASE;
 
 import app.Features.Task.TaskManager;
+import app.Task;
 import app.ToDoList;
 
 import java.nio.file.*;
@@ -10,10 +11,10 @@ import java.util.stream.Collectors;
 public class SaveTaskToFile extends TaskManager {
     @Override
     public void showActionInfo() {
-        System.out.println("");
+        System.out.println();
         System.out.println("Please enter path to file:");
 
-        System.out.println("");
+        System.out.println();
         System.out.println("Enter 0 to RETURN");
     }
 
@@ -32,9 +33,20 @@ public class SaveTaskToFile extends TaskManager {
 
     @Override
     public void execute(String path) {
-        List<String> lines = ToDoList.tasks.entrySet().stream()
-                .map(entry -> entry.getValue().toString())
-                .collect(Collectors.toList());
+//        List<String> lines = ToDoList.tasks.values().stream()
+//                .map(Task::toString)
+//                .collect(Collectors.toList());
+
+
+        List<String> lines = ToDoList.tasks.values().stream().
+        map(task -> {
+            if ("quick".equals(task.getTaskType())) {
+                return task.getId() + "," + task.getDescription() + "," + task.getDueDate() + "," + task.getTaskType();
+            } else {
+                return task.getId() + "," + task.getDescription() + "," + task.getDueDate() + "," + task.getTaskType() + "," + Arrays.toString(task.getSub_tasks());
+            }
+        }).collect(Collectors.toList());
+
         try {
             Files.write(Paths.get(path), lines);
             System.out.println("Tasks successfully saved to file: " + path);

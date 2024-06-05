@@ -2,9 +2,8 @@ package app;
 
 import app.Sorting.SortByDATE;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Task {
 
@@ -15,23 +14,42 @@ public class Task {
     private boolean status;
     private LocalDate dueDate;
     private String taskType;
-    private String subTasks;
+    private String[] sub_tasks;
 
     //Initiating the constructor/task
-//    public Task() {
-//        this.id = counter++;
-//        this.status = false;
-//    }
-
-
     public Task() {
-        this.starCount = starCount;
         this.id = counter++;
-        this.description = description;
         this.status = false;
+    }
+
+
+
+
+    // Parameterized constructor to initialize Task
+    public Task(int id, String description, LocalDate dueDate, String taskType, String[] sub_tasks) {
+        this.starCount = 0; // Default value
+        this.id = ++counter;
+        this.description = description;
+        this.status = false; // Default value
         this.dueDate = dueDate;
         this.taskType = taskType;
-        this.subTasks = subTasks;
+        this.sub_tasks = new String[]{Arrays.toString(sub_tasks)};
+    }
+
+    public Task(int id, String description, boolean status, LocalDate dueDate, String taskType, String[] sub_tasks) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.dueDate = dueDate;
+        this.taskType = taskType;
+        this.sub_tasks = new String[]{Arrays.toString(sub_tasks)};
+    }
+
+    public Task(int id, String description, LocalDate dueDate, String taskType) {
+        this.id = ++counter;
+        this.description = description;
+        this.dueDate  = dueDate;
+        this.taskType = taskType;
     }
 
     //start-point
@@ -42,6 +60,9 @@ public class Task {
         return starCount;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -56,17 +77,13 @@ public class Task {
     }
 
 
-    public void setStatus(String status) {
-        if (status.equalsIgnoreCase("completed")){
-            this.status = true;
-        }else {
-            this.status = false;
-        }
+    public void setStatus(boolean status) {
+            this.status = status;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
+//    public void setDueDate(LocalDate dueDate) {
+//        this.dueDate = dueDate;
+//    }
 
     public String getTaskType() {
         return taskType;
@@ -76,34 +93,30 @@ public class Task {
         this.taskType = taskType;
     }
 
-    //changing the default toString
-    @Override
-    public String toString() {
-//        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-
-//        return id + ". " + description + "[" + df.format(dueDate) + "]" + (taskType != null ? "[" + taskType + "]" : "")
-//                + (status ? "complete" : "");
-
-        return id + "," + description + "," + SortByDATE.convertDateToString(dueDate, "dd-MM-yyyy") + "," + taskType + "," + subTasks;
-
-
-    }
-
     public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public String getStatus() {
-        if (status){
-            return "completed";
-        }else return "incomplete";
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public String getSubTasks() {
-        return subTasks;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setSubTasks(String subTasks) {
-        this.subTasks = subTasks;
+    public String[] getSub_tasks() {
+        return sub_tasks;
+    }
+
+    public void setSub_tasks(String[] sub_tasks) {
+        this.sub_tasks = sub_tasks;
+    }
+
+    @Override
+    public String toString() {
+//        return id + ", " + description + ", " + SortByDATE.convertDateToString(dueDate, "dd-MM-yyyy") + ", " + taskType + ", " + subTasks + ", " + (status ? "completed" : "incomplete");
+
+        return id +"," + description +"," + SortByDATE.convertDateToString(dueDate,"dd-MM-yyyy")+ "," + taskType+ "," +Arrays.toString(sub_tasks) ;
     }
 }

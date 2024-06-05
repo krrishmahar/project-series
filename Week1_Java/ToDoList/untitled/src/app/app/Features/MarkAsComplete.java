@@ -44,11 +44,12 @@ public class MarkAsComplete extends TaskManager {
 
     @Override
     public void execute(String command) {
-    ToDoList.tasks.get(command).setStatus("completed");
+    ToDoList.tasks.get(command).setStatus(Boolean.parseBoolean("completed"));
         Task task = new Task();
         task.incrementStarCount();
         System.out.println("Status is set as Completed for the task with ID: " + command);
         System.out.println(".......................");
         System.out.println("Great! You have earned a ⭐, my friend");
+        task.incrementStarCount();
     }
 }

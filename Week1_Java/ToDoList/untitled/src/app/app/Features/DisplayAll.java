@@ -5,6 +5,8 @@ import app.Sorting.SortByDATE;
 import app.Task;
 import app.ToDoList;
 
+import java.util.Arrays;
+
 public class DisplayAll extends TaskManager {
     @Override
     public void showActionInfo() {
@@ -22,17 +24,26 @@ public class DisplayAll extends TaskManager {
         ToDoList.tasks.forEach((key,task) -> {
             System.out.println("ID: " + key + ", Description: " + task.getDescription() + ", Due Date: "
                     + SortByDATE.convertDateToString(task.getDueDate(),"dd-MM-yyyy") + ", Status: "
-                    + task.getStatus() + " Task type: " + task.getTaskType());
+                    + (task.getStatus() ? "complete" : "incomplete") + " Task type: " + task.getTaskType());
             System.out.println("Sub-task: ");
 
-            // Split the subtasks string by '\n' and print each subtask
-            String[] subTasksArray = task.getSubTasks().split("|");
-            for (String subTask : subTasksArray) {
-                System.out.println("- " + subTask);
+            // Split the subtasks string by '|' and print each subtask
+            String[] subTasksArray = task.getSub_tasks();
+            if (subTasksArray != null){
+
+
+
+//                for (String subTask : subTasksArray) {
+//                    System.out.println("- " + subTask);
+//                }
+            }else {
+                subTasksArray = new String[]{"No sub task..."};
+                System.out.println(subTasksArray[0]);
             }
         });
 
-        Task task = new Task();
-        System.out.println("The Total Star Count is "+ task.getStarCount() +"⭐");
+        // Calculating the total star count
+        int totalStarCount = ToDoList.tasks.values().stream().mapToInt(Task::getStarCount).sum();
+        System.out.println("The Total Star Count is " + totalStarCount + "⭐");
     }
 }
