@@ -47,8 +47,8 @@ out/
 # OS specific
 .DS_Store
 Thumbs.db
+*.ini
 
 # Others
-.gitkeep
 *.bak
 *.swp
