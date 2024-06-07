@@ -1,0 +1,31 @@
+
+# Maven
+/target
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/MavenWrapperDownloader.java
+.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea
+*.iml
+*.iws
+
+# Logs
+*.log
+
+# Windows
+*.exe
+*.dll
+*.bat
+.DS_Store
+
+# Linux
+*~
+
+# Others
+*.class
+*.jar
+*.war
+*.gitkeep
+*.ear

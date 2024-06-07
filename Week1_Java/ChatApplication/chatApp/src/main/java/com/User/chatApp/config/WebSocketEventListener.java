@@ -2,6 +2,8 @@ package com.User.chatApp.config;
 
 import com.User.chatApp.chat.ChatMessage;
 import com.User.chatApp.chat.MessageType;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,8 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 public class WebSocketEventListener {
 
     @Autowired
-    private final SimpMessageSendingOperations messageTemplate;
+    private SimpMessageSendingOperations messageTemplate;
+
 
     @EventListener
     public void handleWebSocketConnectListener(
@@ -34,7 +37,7 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
         String username = (String) headerAccessor.getSessionAttributes().get("username");
         if (username != null){
-            log.info("User disconnected: {}", username);
+            log.info("User Disconnected: {}", username);
             var chatMessage = ChatMessage.builder()
                             .type(MessageType.LEAVE)
                     .sender(username)
