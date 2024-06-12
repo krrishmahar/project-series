@@ -70,11 +70,6 @@ This project is a simple network scanner that uses ARP requests to find all devi
 
 2. Follow the on-screen instructions to enter your IP address range and ping the devices.
 
-## Example
-
-The screenshot below shows the output of the network scanner:
-
-![Network Scanner Screenshot](./Screenshot%202024-06-12%20133852.png)
 
 ## Contributing
 
