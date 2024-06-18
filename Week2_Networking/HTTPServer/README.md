@@ -117,7 +117,7 @@ HTTP Server 1   HTTP Server 2   HTTP Server 3
     ``` bash
     cat /etc/resolv.conf | grep nameserver
     ```
-- Then Use that ip while using curl command or testing with postman.
+- Then Use that IP (172.198.x.x) while using curl command or testing with postman.
     
     
 ## Contributing
