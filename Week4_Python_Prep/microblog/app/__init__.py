@@ -1,6 +1,8 @@
 from flask import Flask
+from config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
 # going to use other modules by creating instance of flask(module), module is where mainly flaskk.conf will contains
 
 from app import routes
